@@ -6,6 +6,7 @@ export const getTarefas = async (req, res)=>{
         const resultado = await todasTarefas();
         return res.status(200).json(resultado);
     } catch(err){
+        console.error(err);
         return res.status(500).json({mensagem:"Erro ao buscar tarefas"});
     }
 };
@@ -17,6 +18,7 @@ export const criarTarefaController = async (req, res)=>{
         const resultado = await criarTarefa(nomeTarefa, dataTarefa, usuario_id)
         return res.status(201).json(resultado);
     } catch(err){
+        console.error(err);
         return res.status(500).json({mensagem:"Erro ao criar tarefa"});
     }
 };

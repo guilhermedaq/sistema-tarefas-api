@@ -2,12 +2,16 @@ import express from 'express';
 import dotenv from 'dotenv';
 import router from './routes/tarefaRoutes.js';
 import usuarioRouter from './routes/usuarioRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 //middlewares
+app.use(cors());
 app.use(express.json());
+
+
 app.use('/tarefas', router)
 app.use('/usuarios', usuarioRouter)
 

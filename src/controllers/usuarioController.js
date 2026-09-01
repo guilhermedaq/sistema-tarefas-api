@@ -1,5 +1,6 @@
 import { buscarEmailUsuario, criarUsuarioService } from "../services/usuarioService.js";
 import { hash, compare } from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const criarUsuarioController = async(req, res)=>{
     try{
@@ -28,7 +29,15 @@ export const loginUsuarioController = async (req, res)=>{
         const senhaHash = usuario.senha
         const isMatch = await compare(senha, senhaHash)
         if(isMatch){
-           return res.status(200).json({message:"Logado com sucesso"});
+           const payload = {
+            id: usuario.id,
+            email: usuario.email
+           };
+           const secretKey = process.env.JWT_SECRET;
+           const options = { expiresIn: "1h" };
+           const token = jwt.sign(payload, secretKey, options);
+
+           return res.status(200).json({message:"Logado com sucesso", token: token});
         } else {
             return res.status(401).json({message:"E-mail ou senha incorretos"})
         }

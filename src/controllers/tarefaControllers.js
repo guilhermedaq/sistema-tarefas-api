@@ -3,7 +3,8 @@ import { todasTarefas, criarTarefa, atualizarTarefa, deletarTarefa } from "../se
 
 export const getTarefas = async (req, res)=>{
     try{
-        const resultado = await todasTarefas();
+        const usuario_id = req.usuario.id;
+        const resultado = await todasTarefas(usuario_id);
         return res.status(200).json(resultado);
     } catch(err){
         console.error(err);
@@ -14,7 +15,8 @@ export const getTarefas = async (req, res)=>{
 
 export const criarTarefaController = async (req, res)=>{
     try{
-        const {nomeTarefa, dataTarefa, usuario_id} = req.body;
+        const {nomeTarefa, dataTarefa } = req.body;
+        const usuario_id = req.usuario.id;
         const resultado = await criarTarefa(nomeTarefa, dataTarefa, usuario_id)
         return res.status(201).json(resultado);
     } catch(err){
@@ -26,7 +28,7 @@ export const criarTarefaController = async (req, res)=>{
 export const atualizarTarefaController = async (req, res)=> {
     try{
         const {estagioTarefa} = req.body;
-        const {id} = req.params.id;
+        const { id } = req.params;
         const resultado = await atualizarTarefa(estagioTarefa, id);
         return res.status(200).json(resultado);       
     } catch(err){

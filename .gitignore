@@ -1,2 +1,12 @@
-node_modules
-.env
+# Dependências de Node e React
+**/node_modules
+**/dist
+**/build
+
+# Variáveis de ambiente
+**/.env
+
+# Arquivos do sistema e logs
+npm-debug.log*
+yarn-debug.log*
+.DS_Store

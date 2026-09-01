@@ -1,11 +1,12 @@
 import {Router} from 'express'
 import { getTarefas, criarTarefaController, atualizarTarefaController, deletarTarefaController } from '../controllers/tarefaControllers.js'
+import { autenticarToken } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.get('/', getTarefas);
-router.post('/', criarTarefaController);
-router.put('/:id', atualizarTarefaController);
-router.delete('/:id', deletarTarefaController);
+router.get('/', autenticarToken, getTarefas);
+router.post('/', autenticarToken, criarTarefaController);
+router.put('/:id', autenticarToken, atualizarTarefaController);
+router.delete('/:id', autenticarToken, deletarTarefaController);
 
 export default router;

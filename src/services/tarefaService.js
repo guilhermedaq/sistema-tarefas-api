@@ -2,8 +2,8 @@ import pool from "../config/db.js";
 
 
 //lista todas as tarefas
-export const todasTarefas = async ()=>{
-        const dados = await pool.query('SELECT * FROM tarefas');
+export const todasTarefas = async (usuario_id)=>{
+        const dados = await pool.query('SELECT * FROM tarefas WHERE usuario_id = $1;', [usuario_id]);
         return dados.rows
 }
 
